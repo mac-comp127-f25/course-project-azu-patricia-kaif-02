@@ -9,7 +9,11 @@ public class CommonChip {
     private double height;
     private Color color;
 
-    public CommonChip(double radius, double width, double height) {
+    public CommonChip(double radius, double width, double height, Color color) {
+        this.radius = radius;
+        this.width = width;
+        this.height = height;
+        this.color = color;
         this.chip = new Ellipse(0, 0, width, height);
     }
 
@@ -22,6 +26,13 @@ public class CommonChip {
     }
  
     public void move() {
+        
+    }
+    public void getX() {
+
+    }
+
+    public void getY() {
         
     }
 }
