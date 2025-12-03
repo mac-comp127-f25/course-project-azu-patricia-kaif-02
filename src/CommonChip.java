@@ -29,10 +29,10 @@ public class CommonChip {
         
     }
     public void getX() {
-
+        chip.getX();
     }
 
     public void getY() {
-        
+        chip.getY();
     }
 }
