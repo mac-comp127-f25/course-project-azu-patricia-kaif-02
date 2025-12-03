@@ -12,26 +12,27 @@ import java.util.Random;
 
 public class Board {
     private static final int TOTAL_CELLS = 100;
-    private static final int CELL_SIZE = 10;
+    private static final int CELL_SIZE = 50;
 
-    private int[] mazeLayout;
-
+    private int[] boardLayout = {0,1,0,1,0,1,0,1,0,1,
+                                1,0,1,0,1,0,1,0,1,0,
+                                0,1,0,1,0,1,0,1,0,1,
+                                1,0,1,0,1,0,1,0,1,0,
+                                0,1,0,1,0,1,0,1,0,1,
+                                1,0,1,0,1,0,1,0,1,0,
+                                0,1,0,1,0,1,0,1,0,1,
+                                1,0,1,0,1,0,1,0,1,0,
+                                0,1,0,1,0,1,0,1,0,1,
+                                1,0,1,0,1,0,1,0,1,0
+    };
     
     public Board() {
-        int[] mazeLayout = {0,1,0,1,0,1,0,1,0,1,
-                            1,0,1,0,1,0,1,0,1,0,
-                            0,1,0,1,0,1,0,1,0,1,
-                            1,0,1,0,1,0,1,0,1,0,
-                            0,1,0,1,0,1,0,1,0,1,
-                            1,0,1,0,1,0,1,0,1,0,
-                            0,1,0,1,0,1,0,1,0,1,
-                            1,0,1,0,1,0,1,0,1,0,
-                            0,1,0,1,0,1,0,1,0,1,
-                            1,0,1,0,1,0,1,0,1,0
-        };
+        
     }
   
-    public void drawMazeLayout(CanvasWindow canvas) {
+    public void drawBoardLayout(CanvasWindow canvas) {
+        // 0 = white and 1 = black
+       
         int index = 0;
 
         for (int row = 0; row < 10; row++) {
@@ -44,7 +45,7 @@ public class Board {
                     CELL_SIZE
                 );
 
-                if (mazeLayout[index] == 0) {
+                if (boardLayout[index] == 0) {
                     cell.setFillColor(Color.WHITE);
                 } else {
                     cell.setFillColor(Color.BLACK);
@@ -54,13 +55,13 @@ public class Board {
                 canvas.add(cell);
 
                 index++;
+            }
         }
-    }
     }
 
    public static void main(String[] args) {
-        CanvasWindow canvas = new CanvasWindow("Maze", CELL_SIZE*TOTAL_CELLS, CELL_SIZE*TOTAL_CELLS);
+        CanvasWindow canvas = new CanvasWindow("Checkers Board", 600, TOTAL_CELLS*CELL_SIZE);
         Board board = new Board();
-        board.drawMazeLayout(canvas);      
+        board.drawBoardLayout(canvas);      
     }
 }
