@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class Board {
     private static final int TOTAL_CELLS = 100;
-    private static final int CELL_SIZE = 50;
+    private static final int CELL_SIZE = 75;
 
     private int[] boardLayout = {0,1,0,1,0,1,0,1,0,1,
                                 1,0,1,0,1,0,1,0,1,0,
@@ -60,7 +60,7 @@ public class Board {
     }
 
    public static void main(String[] args) {
-        CanvasWindow canvas = new CanvasWindow("Checkers Board", 600, TOTAL_CELLS*CELL_SIZE);
+        CanvasWindow canvas = new CanvasWindow("Checkers Board", 800, TOTAL_CELLS*CELL_SIZE);
         Board board = new Board();
         board.drawBoardLayout(canvas);      
     }
