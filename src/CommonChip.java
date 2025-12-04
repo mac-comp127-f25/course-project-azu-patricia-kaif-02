@@ -4,21 +4,14 @@ import edu.macalester.graphics.Ellipse;
 
 public class CommonChip {
     private Ellipse chip;
-    private double radius;
-    private double width;
-    private double height;
+    private static final int RADIUS = 20;
     private Color color;
 
-    public CommonChip(double radius, double width, double height, Color color) {
-        this.radius = radius;
-        this.width = width;
-        this.height = height;
+    public CommonChip(double x, double y, Color color) {
         this.color = color;
-        this.chip = new Ellipse(0, 0, width, height);
-    }
-
-    public void setCenter(double x, double y) {
-        chip.setCenter(x,y);
+        this.chip = new Ellipse(x, y, 2 * RADIUS, 2 * RADIUS);
+        this.chip.setFillColor(color);
+        // chip.setCenter(x,y);
     }
 
     public void setColor() {
@@ -34,5 +27,9 @@ public class CommonChip {
 
     public void getY() {
         chip.getY();
+    }
+
+    public Ellipse getChip() {
+        return chip;
     }
 }

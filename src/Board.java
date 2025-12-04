@@ -34,7 +34,7 @@ public class Board {
         // 0 = white and 1 = black
        
         int index = 0;
-
+        
         for (int row = 0; row < 10; row++) {
             for (int col = 0; col < 10; col++) {
 
@@ -44,24 +44,16 @@ public class Board {
                     CELL_SIZE,
                     CELL_SIZE
                 );
-
                 if (boardLayout[index] == 0) {
                     cell.setFillColor(Color.WHITE);
                 } else {
                     cell.setFillColor(Color.BLACK);
                 }
-
                 cell.setFilled(true);
                 canvas.add(cell);
-
                 index++;
             }
         }
     }
 
-   public static void main(String[] args) {
-        CanvasWindow canvas = new CanvasWindow("Checkers Board", 800, TOTAL_CELLS*CELL_SIZE);
-        Board board = new Board();
-        board.drawBoardLayout(canvas);      
-    }
 }
