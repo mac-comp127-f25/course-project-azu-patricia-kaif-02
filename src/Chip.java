@@ -1,17 +1,39 @@
-public interface Chip {
-    /**
-     *  This method checks if there is a space the chip can move into in a digonal matter. 
-     * If there is another chip? If yes, is there space beyond that chip to move to?
-     */ 
-    void move();
+import java.awt.Color;
 
-    /**
-     * When chip 1 jumps over the respective chip, then this one will get remove
-     */
-    void remove();
+import edu.macalester.graphics.Ellipse;
 
-    /*
-     * When a chip gets to the opposite side of the board, then it becomes king
-     */
-    void promote();
+public class Chip {
+    private Ellipse chip;
+    private static final int RADIUS = 20;
+    private Color color;
+
+    public Chip(double x, double y, Color color) {
+        this.color = color;
+        this.chip = new Ellipse(x, y, 2 * RADIUS, 2 * RADIUS);
+        this.chip.setFillColor(color);
+        // chip.setCenter(x,y);
+    }
+
+    public void setColor(Color color) {
+        chip.setFillColor(color);
+    }
+ 
+    public void move() {
+        
+    }
+    public void getX() {
+        chip.getX();
+    }
+
+    public void getY() {
+        chip.getY();
+    }
+
+    public Ellipse getChip() {
+        return chip;
+    }
+
+    public void setPosition(double x, double y) {
+        chip.setPosition(x,y);
+    }
 }

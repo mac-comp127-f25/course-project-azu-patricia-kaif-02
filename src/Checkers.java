@@ -8,8 +8,7 @@ public class Checkers {
     public static final int CANVAS_WIDTH = 1000;
     public static final int CANVAS_HEIGHT = 800;
 
-    private List<CommonChip> redChips;
-    private List<CommonChip> blackChips;
+    private List<Chip> chips;
     private CanvasWindow canvas;
     private Board board;
 
@@ -17,18 +16,26 @@ public class Checkers {
       this.canvas = canvas;
       board = new Board();
       board.drawBoardLayout(canvas);
-      redChips = new ArrayList<>();
-      redChips.add(new CommonChip(0, 0, Color.red));
-
-      blackChips = new ArrayList<>();
+      chips = new ArrayList<>();
     }
 
-    public void generateRedChips() {
-        canvas.add(redChips.get(0).getChip());
+    public void generateChips(Color color) {
+        double x =0;
+        double y =0;
+        for (int i = 0; i < 20; i++) {
+            Chip chip = new Chip(x, y, color);
+            chips.add(chip);
+        }
+    }
+
+    public void drawRedChips() {
+        double x = 0;
+
     }
 
     public void game() {
-        generateRedChips();
+        generateChips(Color.red);
+        generateChips(Color.black);
     }
 
     public static void main(String[] args) {
