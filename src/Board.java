@@ -56,4 +56,16 @@ public class Board {
         }
     }
 
+    public Point getCellCenter(int row, int col) {
+        // Calculating the coordinate of the top-left corner of the grid in screen coordinates
+        double topX = col * CELL_SIZE;
+        double topY = row * CELL_SIZE;
+
+        // Calculating the center of one cel 
+        double centerX = topX + (CELL_SIZE/2);
+        double centerY = topY + (CELL_SIZE/2);
+
+        return new Point(centerX, centerY);
+    }
+
 }

@@ -1,11 +1,13 @@
 import java.awt.Color;
 
 import edu.macalester.graphics.Ellipse;
+import edu.macalester.graphics.Point;
 
 public class Chip {
     private Ellipse chip;
     private static final int RADIUS = 20;
     private Color color;
+    
 
     public Chip(double x, double y, Color color) {
         this.color = color;
@@ -33,7 +35,8 @@ public class Chip {
         return chip;
     }
 
-    public void setPosition(double x, double y) {
-        chip.setPosition(x,y);
+    public void setCenter(int x, int y, Board board) {
+        Point position = board.getCellCenter(x, y);
+        chip.setCenter(position);
     }
 }

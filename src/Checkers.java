@@ -20,22 +20,41 @@ public class Checkers {
     }
 
     public void generateChips(Color color) {
-        double x =0;
-        double y =0;
         for (int i = 0; i < 20; i++) {
-            Chip chip = new Chip(x, y, color);
+            Chip chip = new Chip(0, 0, color);
             chips.add(chip);
         }
     }
 
-    public void drawRedChips() {
-        double x = 0;
+    public void drawChips() {
+        generateChips(Color.red);
+        generateChips(Color.BLUE);
+
+
+        chips.get(0).setCenter(2, 1, board);
+        canvas.add(chips.get(0).getChip());
+        System.out.println(board.getCellCenter(2, 1));
+
+         chips.get(30).setCenter(0, 1, board);
+        canvas.add(chips.get(30).getChip());
+        System.out.println(board.getCellCenter(0, 1));
+
+        // for (Chip chip: chips) {     
+        // for (int row = 0; row < 10; row++) {
+        //     for (int col = 0; col < 10; col++) {
+        //         chip.setCenter(row, col, board);
+        //         System.out.println(board.getCellCenter(row, col));
+        //         canvas.add(chip.getChip());
+        //     }
+        
+        // }
+    // }
+
 
     }
 
     public void game() {
-        generateChips(Color.red);
-        generateChips(Color.black);
+        drawChips();
     }
 
     public static void main(String[] args) {
