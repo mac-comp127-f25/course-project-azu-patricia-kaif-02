@@ -64,7 +64,9 @@ public class Board {
        return row * COLS + col;
    }
 
-
+   /**
+    * It checks if the chip is inside the board. Returns true if it is otherwise is false
+    */
    public boolean isInside(int row, int col){
        return row >= 0 && row < ROWS && col >= 0 && col < COLS;
    }

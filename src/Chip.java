@@ -1,6 +1,6 @@
 import java.awt.Color;
 
-
+import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.Point;
 
@@ -9,6 +9,7 @@ public class Chip {
    private Ellipse chip;
    private static final int RADIUS = 20;
    private Color color;
+   private boolean direction;
 
 
    // board coordinates
@@ -64,4 +65,5 @@ public class Chip {
        Point position = board.getCellCenter(row, col);
        chip.setCenter(position);
    }
+
 }
