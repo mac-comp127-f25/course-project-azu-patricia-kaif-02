@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.Rectangle;
 import edu.macalester.graphics.*;
