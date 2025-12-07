@@ -73,13 +73,3 @@ public class Board {
 
 
 
-___
-
-
-
-my work: 
-
-private GraphicsText whosTurn = new GraphicsText("Player's turn: White");
-
-
-
