@@ -55,12 +55,13 @@ public class Checkers {
 
     public void game() {
         drawChips();
+        board.drawBoardLayout(canvas);
     }
 
     public static void main(String[] args) {
         
         CanvasWindow canvas = new CanvasWindow("Checkers Board", CANVAS_WIDTH, CANVAS_HEIGHT);
-        Checkers checkers = new Checkers(canvas);  
+        Checkers checkers = new Checkers(canvas);
         checkers.game();
     }
 }
