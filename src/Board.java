@@ -34,7 +34,7 @@ public class Board {
         // 0 = white and 1 = black
        
         int index = 0;
-        
+
         for (int row = 0; row < 10; row++) {
             for (int col = 0; col < 10; col++) {
 
@@ -44,28 +44,26 @@ public class Board {
                     CELL_SIZE,
                     CELL_SIZE
                 );
+
                 if (boardLayout[index] == 0) {
                     cell.setFillColor(Color.WHITE);
                 } else {
                     cell.setFillColor(Color.BLACK);
                 }
+
                 cell.setFilled(true);
                 canvas.add(cell);
+
                 index++;
             }
         }
     }
 
-    public Point getCellCenter(int row, int col) {
-        // Calculating the coordinate of the top-left corner of the grid in screen coordinates
-        double topX = col * CELL_SIZE;
-        double topY = row * CELL_SIZE;
+    
 
-        // Calculating the center of one cel 
-        double centerX = topX + (CELL_SIZE/2);
-        double centerY = topY + (CELL_SIZE/2);
-
-        return new Point(centerX, centerY);
+   public static void main(String[] args) {
+        CanvasWindow canvas = new CanvasWindow("Checkers Board", 800, TOTAL_CELLS*CELL_SIZE);
+        Board board = new Board();
+        board.drawBoardLayout(canvas);      
     }
-
 }
