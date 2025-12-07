@@ -49,8 +49,6 @@ public class Checkers {
         
         // }
     // }
-
-
     }
 
     public void game() {

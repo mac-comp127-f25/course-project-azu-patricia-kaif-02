@@ -71,7 +71,4 @@ public class Board {
         return new Point(centerX, centerY);
     }
 
-
-    
-
 }
