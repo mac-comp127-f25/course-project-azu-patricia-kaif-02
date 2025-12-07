@@ -17,17 +17,17 @@ public class Checkers {
 
 
    public Checkers(CanvasWindow canvas) {
-    this.canvas = canvas;
-    board = new Board();
-    board.drawBoardLayout(canvas);
+     this.canvas = canvas;
+     board = new Board();
+     board.drawBoardLayout(canvas);
 
 
      //
-    chipGrid = new Chip[Board.ROWS][Board.COLS];
+     chipGrid = new Chip[Board.ROWS][Board.COLS];
 
 
      //
-    placeStartingChips();
+     placeStartingChips();
    }
 
 
@@ -73,18 +73,6 @@ public class Checkers {
            }
        }
    }
-
-   public void onClick(CanvasWindow canvas) {
-    canvas.onClick(event -> event.getPosition());
-   }
-
-     public void moveChip(Chip chip, int fromRow, int fromCol, int toRow, int toCol) {
-        if (!board.isInside(fromRow, fromCol) || !board.isInside(toRow, toCol)) {
-            return;
-        } else {
-            chip.setBoardPositions(toRow, toCol, board);
-        }
-    }
 
 
    // public void generateChips(Color color) {
