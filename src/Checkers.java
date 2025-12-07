@@ -27,6 +27,9 @@ public class Checkers {
         }
     }
 
+    // trying to see if it works 
+
+
     public void drawChips() {
         generateChips(Color.red);
         generateChips(Color.BLUE);
