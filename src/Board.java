@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-import edu.macalester.graphics.CanvasWindow;
-import edu.macalester.graphics.Rectangle;
 import edu.macalester.graphics.*;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -72,3 +70,16 @@ public class Board {
     }
 
 }
+
+
+
+___
+
+
+
+my work: 
+
+private GraphicsText whosTurn = new GraphicsText("Player's turn: White");
+
+
+
