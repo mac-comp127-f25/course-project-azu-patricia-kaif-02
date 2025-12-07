@@ -32,12 +32,13 @@ public class Checkers {
 
 
         chips.get(0).setCenter(2, 1, board);
+        // chips.get(0).setCenter(2, 1, board);
         canvas.add(chips.get(0).getChip());
         System.out.println(board.getCellCenter(2, 1));
 
-         chips.get(30).setCenter(0, 1, board);
-        canvas.add(chips.get(30).getChip());
-        System.out.println(board.getCellCenter(0, 1));
+        //  chips.get(30).setCenter(0, 1, board);
+        // canvas.add(chips.get(30).getChip());
+        // System.out.println(board.getCellCenter(0, 1));
 
         // for (Chip chip: chips) {     
         // for (int row = 0; row < 10; row++) {
