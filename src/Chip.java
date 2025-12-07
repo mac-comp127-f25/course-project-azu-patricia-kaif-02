@@ -7,6 +7,10 @@ public class Chip {
     private Ellipse chip;
     private static final int RADIUS = 20;
     private Color color;
+
+    // board coordinates
+    private int row;
+    private int col;
     
 
     public Chip(double x, double y, Color color) {
@@ -35,8 +39,20 @@ public class Chip {
         return chip;
     }
 
-    public void setCenter(int x, int y, Board board) {
-        Point position = board.getCellCenter(x, y);
+    // board position of chip
+    public int getRow(){
+        return row;
+    }
+
+    public int getCol(){
+        return col;
+    }
+
+    // sets board position given row, col
+    public void setBoardPositions(int row, int col, Board board) {
+        this.row = row;
+        this.col = col;
+        Point position = board.getCellCenter(row, col);
         chip.setCenter(position);
     }
 }
