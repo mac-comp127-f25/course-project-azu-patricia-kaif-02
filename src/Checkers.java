@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.macalester.graphics.CanvasWindow;
+import edu.macalester.graphics.GraphicsText;
 
 public class Checkers {
     public static final int CANVAS_WIDTH = 1000;
@@ -56,6 +57,8 @@ public class Checkers {
         drawChips();
         board.drawBoardLayout(canvas);
     }
+
+    
 
     public static void main(String[] args) {
         
