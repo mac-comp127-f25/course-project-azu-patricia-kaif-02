@@ -1,9 +1,11 @@
 import java.awt.Color;
+
 import java.util.ArrayList;
 import java.util.List;
-
-
 import edu.macalester.graphics.CanvasWindow;
+import edu.macalester.graphics.FontStyle;
+import edu.macalester.graphics.GraphicsText;
+
 
 
 public class Checkers {
@@ -15,20 +17,47 @@ public class Checkers {
    private CanvasWindow canvas;
    private Board board;
 
+   private String playerWhosActive = "red"; // in checkers one always starts with red
+   private GraphicsText turnIndicator = new GraphicsText("");
+
 
    public Checkers(CanvasWindow canvas) {
-     this.canvas = canvas;
-     board = new Board();
-     board.drawBoardLayout(canvas);
+        this.canvas = canvas;
+        board = new Board();
+        board.drawBoardLayout(canvas);
+
+
+        setupTurnDisplay();
 
 
      //
-     chipGrid = new Chip[Board.ROWS][Board.COLS];
+         chipGrid = new Chip[Board.ROWS][Board.COLS];
 
 
      //
-     placeStartingChips();
+        placeStartingChips();
    }
+
+   private void setupTurnDisplay() {
+        turnIndicator.setText("Player's Turn: RED");
+        turnIndicator.setCenter(850, 100);
+        canvas.add(turnIndicator);
+   }
+
+   private void switchTurn() {
+        if (playerWhosActive.equals("red")) {
+            playerWhosActive = "blue";
+            turnIndicator.setText("Player's Turn: BLUE");
+        } else {
+            playerWhosActive = "red";
+            turnIndicator.setText("Player's Turn: RED");
+        }
+    }
+
+    public String playerWhosActive() {
+        return playerWhosActive();
+    }
+
 
 
    private void placeChip(int row, int col, Color color){
@@ -118,9 +147,8 @@ public class Checkers {
 
 
    public static void main(String[] args) {
-      
        CanvasWindow canvas = new CanvasWindow("Checkers Board", CANVAS_WIDTH, CANVAS_HEIGHT);
        Checkers checkers = new Checkers(canvas); 
-       checkers.game();
-   }
+    checkers.game();
+    }
 }
