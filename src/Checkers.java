@@ -1,13 +1,7 @@
 import java.awt.Color;
 
-import java.util.ArrayList;
-import java.util.List;
 import edu.macalester.graphics.CanvasWindow;
-import edu.macalester.graphics.Ellipse;
-import edu.macalester.graphics.FontStyle;
-import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.GraphicsText;
-import edu.macalester.graphics.Point;
 
 
 public class Checkers {
@@ -73,14 +67,11 @@ public class Checkers {
             return;
         }
 
-
         Chip chip = new Chip(color); // new chip object
-        chip.setBoardPositions(row, col, board); // positions new chip
+        chip.setBoardPosition(row, col, board); // positions new chip
         chipGrid[row][col] = chip; // adds new chip object to array of chips
         board.add(chip); // chip added to canvas
-
     }
-
 
     private void placeStartingChips() {
         // top player
@@ -116,6 +107,7 @@ public class Checkers {
         }
         selectedChip = chip;
         chip.setSelected(true);
+        chip.setBoardPosition(chip.getRow() - 1, chip.getCol(), board);
     }
 
     public void game() {

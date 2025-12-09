@@ -34,7 +34,7 @@ public class Chip {
     }
 
     // sets board position given row, col
-    public void setBoardPositions(int row, int col, Board board) {
+    public void setBoardPosition(int row, int col, Board board) {
         this.row = row;
         this.col = col;
         Point position = board.getCellCenter(row, col);
@@ -43,7 +43,7 @@ public class Chip {
 
     public void setSelected(boolean selected) {
         if (selected) {
-            graphics.setStrokeColor(Color.white);
+            graphics.setStrokeColor(Color.yellow);
             graphics.setStrokeWidth(5);
         } else {
             graphics.setStroked(false);
