@@ -1,13 +1,10 @@
 import java.util.ArrayList;
-
+import java.util.List;
 
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.Rectangle;
 import edu.macalester.graphics.*;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 
 public class Board extends GraphicsGroup {
@@ -16,17 +13,16 @@ public class Board extends GraphicsGroup {
     private static final int TOTAL_CELLS = 100;
     private static final int CELL_SIZE = 75;
 
-    public Board() {
+    private List<Chip> chips;
 
+    public Board() {
+        this.chips = new ArrayList<>();
     }
 
     public void drawBoardLayout(CanvasWindow canvas) {
         // 0 = white and 1 = black
-
         for (int row = 0; row < 10; row++) {
             for (int col = 0; col < 10; col++) {
-
-
                 Rectangle cell = new Rectangle(
                     col * CELL_SIZE,
                     row * CELL_SIZE,
@@ -50,17 +46,14 @@ public class Board extends GraphicsGroup {
         return row >= 0 && row < ROWS && col >= 0 && col < COLS;
     }
 
-
     public boolean isDarkSquare(int row, int col) {
         return (row + col) % 2 == 1;
     }
-
 
     public Point getCellCenter(int row, int col) {
         // Calculating the coordinate of the top-left corner of the grid in screen coordinates
         double topX = col * CELL_SIZE;
         double topY = row * CELL_SIZE;
-
 
         // Calculating the center of one cel
         double centerX = topX + (CELL_SIZE / 2);
@@ -72,16 +65,29 @@ public class Board extends GraphicsGroup {
     /**
      * It checks for the existence of an element at within the square on the given coordinates
      * 
-     * @param x
-     * @param y
+     * @param point object
      * @return the chip at the specified position, if no chip, it returns null
      */
-    public GraphicsObject checkForChip(Point point) {
-        if (getElementAt(point) != null) {
-            return getElementAt(point);
-        } else {
-            return null;
+    public Chip checkForChip(Point point) {
+        GraphicsObject object = getElementAt(point);
+        if (object != null) {
+            // for each chip in list of chips:
+            //.   is object this chip's graphics obejct? if so, return it
+            for (Chip chip: chips) {
+                if (object == chip.getGraphics()) {
+                    return chip;
+                }
+            }
         }
+        return null;
+    }
+
+    public void add(Chip chip) {
+        // TODO:
+        // add chip's graphics to this graphics group
+        // add chip to some list of all chips
+        this.add(chip.getGraphics());
+        chips.add(chip);
     }
 
 }

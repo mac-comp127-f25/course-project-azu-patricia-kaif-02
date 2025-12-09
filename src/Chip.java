@@ -40,4 +40,13 @@ public class Chip {
         Point position = board.getCellCenter(row, col);
         graphics.setCenter(position);
     }
+
+    public void setSelected(boolean selected) {
+        if (selected) {
+            graphics.setStrokeColor(Color.white);
+            graphics.setStrokeWidth(5);
+        } else {
+            graphics.setStroked(false);
+        }
+    }
 }
