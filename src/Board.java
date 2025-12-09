@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class Board {
+public class Board extends GraphicsGroup {
    public static final int ROWS = 10;
    public static final int COLS = 10;
    private static final int TOTAL_CELLS = 100;
@@ -68,28 +68,41 @@ public class Board {
    /**
     * It checks if the chip is inside the board. Returns true if it is otherwise is false
     */
-   public boolean isInside(int row, int col){
-       return row >= 0 && row < ROWS && col >= 0 && col < COLS;
-   }
+    public boolean isInside(int row, int col){
+        return row >= 0 && row < ROWS && col >= 0 && col < COLS;
+    }
 
 
-   public boolean isDarkSquare(int row, int col) {
-       return boardLayout[indexOf(row, col)] == 1;
+    public boolean isDarkSquare(int row, int col) {
+        return boardLayout[indexOf(row, col)] == 1;
    }
 
 
    public Point getCellCenter(int row, int col) {
        // Calculating the coordinate of the top-left corner of the grid in screen coordinates
-       double topX = col * CELL_SIZE;
-       double topY = row * CELL_SIZE;
+        double topX = col * CELL_SIZE;
+        double topY = row * CELL_SIZE;
 
 
        // Calculating the center of one cel
-       double centerX = topX + (CELL_SIZE/2);
-       double centerY = topY + (CELL_SIZE/2);
+        double centerX = topX + (CELL_SIZE/2);
+        double centerY = topY + (CELL_SIZE/2);
 
+        return new Point(centerX, centerY);
+    }
 
-       return new Point(centerX, centerY);
+    /**
+     * It checks for the existence of an element at within the square on the given coordinates
+     * @param x
+     * @param y
+     * @return the chip at the specified position, if no chip, it returns null
+     */
+    public GraphicsObject checkForChip(Point point) {
+        if (getElementAt(point) != null) {
+            return getElementAt(point);
+        } else {
+            return null;
+        }
    }
 
 }

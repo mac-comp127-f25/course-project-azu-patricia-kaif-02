@@ -9,7 +9,6 @@ public class Chip {
    private Ellipse chip;
    private static final int RADIUS = 20;
    private Color color;
-   private boolean direction;
 
 
    // board coordinates
@@ -18,52 +17,51 @@ public class Chip {
   
 
 
-   public Chip(double x, double y, Color color) {
+    public Chip(double x, double y, Color color) {
        this.color = color;
        this.chip = new Ellipse(x, y, 2 * RADIUS, 2 * RADIUS);
        this.chip.setFillColor(color);
-       // chip.setCenter(x,y);
-   }
+    }
 
 
-   public void setColor(Color color) {
+    public void setColor(Color color) {
        chip.setFillColor(color);
-   }
+    }
    public void move() {
       
    }
-   public void getX() {
+    public void getX() {
        chip.getX();
-   }
+    }
 
 
-   public void getY() {
+    public void getY() {
        chip.getY();
-   }
+    }
 
 
-   public Ellipse getChip() {
+    public Ellipse getChip() {
        return chip;
-   }
+    }
 
 
    // board position of chip
-   public int getRow(){
+    public int getRow(){
        return row;
-   }
+    }
 
 
-   public int getCol(){
+    public int getCol(){
        return col;
-   }
+    }
 
 
-   // sets board position given row, col
-   public void setBoardPositions(int row, int col, Board board) {
+    // sets board position given row, col
+    public void setBoardPositions(int row, int col, Board board) {
        this.row = row;
        this.col = col;
        Point position = board.getCellCenter(row, col);
        chip.setCenter(position);
-   }
+    }
 
 }
