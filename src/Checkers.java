@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import edu.macalester.graphics.CanvasWindow;
+import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.FontStyle;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.GraphicsText;
@@ -32,12 +33,8 @@ public class Checkers {
 
         setupTurnDisplay();
 
-
-     //
         chipGrid = new Chip[Board.ROWS][Board.COLS];
 
-
-     //
         placeStartingChips();
    }
 
@@ -78,10 +75,10 @@ public class Checkers {
        }
 
 
-       Chip chip = new Chip(0, 0, color); // new chip object
+       Chip chip = new Chip(color); // new chip object
        chip.setBoardPositions(row, col, board); // positions new chip
        chipGrid[row][col] = chip; // adds new chip object to array of chips
-       board.add(chip.getChip()); // chip added to canvas
+       board.add(chip.getGraphics()); // chip added to canvas
        
    }
 
@@ -104,13 +101,17 @@ public class Checkers {
             }
         }
     }
-
     
     public void handleClick(CanvasWindow canvas) {
         canvas.onClick(event -> {
-            GraphicsObject currentClick = board.checkForChip(event.getPosition());
-            System.out.println(currentClick);
+            GraphicsObject object = board.checkForChip(event.getPosition());
+            System.out.println(object);
+            
         });
+    }
+
+    public void handleChipMove() {
+        
     }
 
     public void game() {

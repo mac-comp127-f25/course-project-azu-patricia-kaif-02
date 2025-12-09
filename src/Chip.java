@@ -1,67 +1,43 @@
 import java.awt.Color;
 
-import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.Point;
 
 
 public class Chip {
-   private Ellipse chip;
-   private static final int RADIUS = 20;
-   private Color color;
+    private static final int RADIUS = 20;
 
+    private Ellipse graphics;
+    private Color color;
 
-   // board coordinates
-   private int row;
-   private int col;
-  
+    // board coordinates
+    private int row;
+    private int col;
 
-
-    public Chip(double x, double y, Color color) {
-       this.color = color;
-       this.chip = new Ellipse(x, y, 2 * RADIUS, 2 * RADIUS);
-       this.chip.setFillColor(color);
+    public Chip(Color color) {
+        this.color = color;
+        this.graphics = new Ellipse(0, 0, 2 * RADIUS, 2 * RADIUS);
+        this.graphics.setFillColor(color);
     }
 
-
-    public void setColor(Color color) {
-       chip.setFillColor(color);
-    }
-   public void move() {
-      
-   }
-    public void getX() {
-       chip.getX();
+    public Ellipse getGraphics() {
+        return graphics;
     }
 
-
-    public void getY() {
-       chip.getY();
+    // board position of chip
+    public int getRow() {
+        return row;
     }
 
-
-    public Ellipse getChip() {
-       return chip;
+    public int getCol() {
+        return col;
     }
-
-
-   // board position of chip
-    public int getRow(){
-       return row;
-    }
-
-
-    public int getCol(){
-       return col;
-    }
-
 
     // sets board position given row, col
     public void setBoardPositions(int row, int col, Board board) {
-       this.row = row;
-       this.col = col;
-       Point position = board.getCellCenter(row, col);
-       chip.setCenter(position);
+        this.row = row;
+        this.col = col;
+        Point position = board.getCellCenter(row, col);
+        graphics.setCenter(position);
     }
-
 }
