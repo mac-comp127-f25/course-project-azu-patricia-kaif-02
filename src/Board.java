@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.macalester.graphics.CanvasWindow;
-import edu.macalester.graphics.Rectangle;
 import edu.macalester.graphics.*;
 import java.awt.Color;
 
@@ -62,13 +60,70 @@ public class Board extends GraphicsGroup {
         return new Point(centerX, centerY);
     }
 
+    public Chip getChipAtGridPosition(int row, int col) {
+        // TODO
+        // where is the chip
+        // what is at neighboring positions() -> 
+        // chip get color 
+        // does color == player color 
+        for (Chip chip: chips) {
+            if (chip.getRow() == row && chip.getCol() == col) {
+                return chip;
+            } 
+        }
+        return null;
+    }
+
+     private void placeChip(int row, int col, Color color) {
+        // inside board bounds check
+        if (!this.isInside(row, col)) {
+            return;
+        }
+        // cannot place chip on white square
+        if (!this.isDarkSquare(row, col)) {
+            return;
+        }
+        // already full check
+        // if (chipGrid[row][col] != null) {
+        //     return;
+        // }
+
+        Chip chip = new Chip(color); // new chip object
+        chip.setBoardPosition(row, col, this); // positions new chip
+        chips.add(chip); // add new chip object to list of chips
+        this.add(chip); // add chip to the board
+    }
+
+    public void placeStartingChips() {
+        // top player
+        for (int row = 0; row < 4; row++) { // only three
+            for (int col = 0; col < Board.COLS; col++) { // all the way till the end of board
+                if (this.isDarkSquare(row, col)) {
+                    placeChip(row, col, Color.RED);
+                }
+            }
+        }
+        // bottom player
+        for (int row = Board.ROWS - 4; row < Board.ROWS; row++) { // start from 6th row (Boards.ROWS-4)
+            for (int col = 0; col < Board.COLS; col++) {
+                if (this.isDarkSquare(row, col)) {
+                    placeChip(row, col, Color.BLUE);
+                }
+            }
+        }
+    }
+
+    // public void removeChipAtGridPosition() {
+
+    // }
+
     /**
      * It checks for the existence of an element at within the square on the given coordinates
      * 
      * @param point object
      * @return the chip at the specified position, if no chip, it returns null
      */
-    public Chip checkForChip(Point point) {
+    public Chip checkForChipAtGraphicsPosition(Point point) {
         GraphicsObject object = getElementAt(point);
         if (object != null) {
             // for each chip in list of chips:
