@@ -5,6 +5,7 @@ public class Square {
     private Rectangle graphics;
     private int row;
     private int col;
+    private Runnable pendingMove;
 
     public Square(double size, int row, int col, boolean isDark) {
         this.row = row;
@@ -30,12 +31,18 @@ public class Square {
         return graphics;
     }
 
-    public void setHighlighted(boolean isHighlighted) {
-        if (isHighlighted) {
+    public void setPendingMove(Runnable pendingMove) {
+        this.pendingMove = pendingMove;
+
+        if (pendingMove != null) {
             graphics.setStrokeWidth(5);
             graphics.setStrokeColor(Color.magenta);
         } else {
             graphics.setStroked(false);
         }
+    }
+
+    public Runnable getPendingMove() {
+        return pendingMove;
     }
 }

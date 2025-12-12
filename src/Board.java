@@ -24,7 +24,7 @@ public class Board extends GraphicsGroup {
         for (int row = 0; row < 10; row++) {
             for (int col = 0; col < 10; col++) {
                 Square square = new Square(SQUARE_SIZE, row, col, isDarkSquare(row, col));
-                canvas.add(square.getGraphics());
+                this.add(square.getGraphics());
                 squares.add(square);
             }
         }
@@ -117,8 +117,6 @@ public class Board extends GraphicsGroup {
     public Chip checkForChipAtGraphicsPosition(Point point) {
         GraphicsObject object = getElementAt(point);
         if (object != null) {
-            // for each chip in list of chips:
-            // . is object this chip's graphics obejct? if so, return it
             for (Chip chip : chips) {
                 if (object == chip.getGraphics()) {
                     return chip;
@@ -127,6 +125,19 @@ public class Board extends GraphicsGroup {
         }
         return null;
     }
+
+    public Square checkForSquareAtGraphicsPosition(Point point) {
+        GraphicsObject object = getElementAt(point);
+        if (object != null) {
+            for (Square square : squares) {
+                if (object == square.getGraphics()) {
+                    return square;
+                }
+            }
+        }
+        return null;
+    }
+
 
     /**
      * It add a chip object to the board graphics group and to list of all chips

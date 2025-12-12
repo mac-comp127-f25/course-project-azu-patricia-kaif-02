@@ -55,6 +55,17 @@ public class Checkers {
             Chip chip = board.checkForChipAtGraphicsPosition(event.getPosition()); // Correctly identifying a chip
             if (chip != null) {
                 selectChip(chip);
+                return;
+            }
+            Square square = board.checkForSquareAtGraphicsPosition(event.getPosition());
+            if (square == null) {
+                return;
+            } else {
+                Runnable pendingMove = square.getPendingMove();
+                if (pendingMove != null) {
+                    pendingMove.run();
+                    selectChip(null);
+                }
             }
         });
     }
@@ -64,13 +75,13 @@ public class Checkers {
             selectedChip.setSelected(false);
         }
         selectedChip = chip;
-        chip.setSelected(true);
-        for (Square square: board.getSquares()) {
-            square.setHighlighted(
+        if (selectedChip != null) {
+            chip.setSelected(true);
+        }
+        for (Square square : board.getSquares()) {
+            square.setPendingMove(
                 chipCanMove(selectedChip, square.getRow(), square.getCol()));
         }
-        // System.out.println(chipCanMove(selectedChip, selectedChip.getRow()-1, selectedChip.getCol() -1)); // It is correctly identifying the possible moves
-        // chip.setBoardPosition(selectedChip.getRow()-1, selectedChip.getCol() -1, board);
     }
 
     /**
@@ -81,15 +92,23 @@ public class Checkers {
      * @param dstCol
      * @return
      */
-    public boolean chipCanMove(Chip chip, int dstRow, int dstCol) {
+    public Runnable chipCanMove(Chip chip, int dstRow, int dstCol) {
+        // Chip cannont move if it is null
+        if (chip == null) {
+            return null;
+        }
+        
         // Can only move into an empty space
         if (board.getChipAtGridPosition(dstRow, dstCol) != null) {
-            return false;
+            return null;
         }
 
         // Moving to an adjacent square
         if (Math.abs(chip.getRow() - dstRow) == 1 && Math.abs(chip.getCol() - dstCol) == 1) {
-            return true;
+            return () -> {
+                // change chip position
+                chip.setBoardPosition(dstRow, dstCol, board);
+            };
         }
         
         // Jumping over opponent piece, check for piece in the middle and is opponent's color
@@ -98,13 +117,17 @@ public class Checkers {
                 (dstRow + chip.getRow()) / 2,
                 (dstCol + chip.getCol()) / 2);
             if (jumpedChip != null && jumpedChip.getColor() != chip.getColor()) {
-                return true;
+                return () -> {
+                    // remove the jumpedChip
+                    board.remove(jumpedChip.getGraphics());
+                    // update the chip position
+                    chip.setBoardPosition(dstRow, dstCol, board);
+                };
             }
         }
 
         // If none of the conditions were met, then chip cannot move to destination row, column
-        return false;
-
+        return null;
     }
 
     public void game() {
