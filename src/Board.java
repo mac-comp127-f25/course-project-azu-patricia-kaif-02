@@ -53,26 +53,7 @@ public class Board extends GraphicsGroup {
         return new Point(centerX, centerY);
     }
 
-    /**
-     * It returns a Chip object found at requested row and column. If none found, it returns null.
-     * @param row is an integer
-     * @param col is an integer
-     * @return
-     */
-    public Chip getChipAtGridPosition(int row, int col) {
-        // TODO
-        // where is the chip
-        // what is at neighboring positions() ->
-        // chip get color
-        // does color == player color
-        for (Chip chip : chips) {
-            if (chip.getRow() == row && chip.getCol() == col) {
-                return chip;
-            }
-        }
-        return null;
-    }
-
+   
     private void placeChip(int row, int col, Color color) {
         // inside board bounds check
         if (!this.isInside(row, col)) {
@@ -111,6 +92,21 @@ public class Board extends GraphicsGroup {
     // public void removeChipAtGridPosition() {
 
     // }
+
+    /**
+     * It returns a Chip object found at requested row and column. If none found, it returns null.
+     * @param row is an integer
+     * @param col is an integer
+     * @return
+     */
+    public Chip getChipAtGridPosition(int row, int col) {
+        for (Chip chip : chips) {
+            if (chip.getRow() == row && chip.getCol() == col) {
+                return chip;
+            }
+        }
+        return null;
+    }
 
     /**
      * It checks for the existence of an element at within the square on the given coordinates

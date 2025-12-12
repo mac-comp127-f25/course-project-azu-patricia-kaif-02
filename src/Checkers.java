@@ -82,80 +82,29 @@ public class Checkers {
      * @return
      */
     public boolean chipCanMove(Chip chip, int dstRow, int dstCol) {
-        // NorthEast direction
-        // int xNorthEast = chip.getCol() + 1;
-        // int yNorthEast = chip.getRow() - 1;
+        // Can only move into an empty space
+        if (board.getChipAtGridPosition(dstRow, dstCol) != null) {
+            return false;
+        }
 
-        // // NorthWest direction
-        // int xNorthWest = chip.getCol() - 1;
-        // int yNorthWest = chip.getRow() - 1;
-
-        // // SouthEst direction
-        // int xSouthEast = chip.getCol() + 1;
-        // int ySouthEast = chip.getRow() + 1;
-
-        // // NorthWest direction
-        // int xSouthhWest = chip.getCol() - 1;
-        // int ySouthWest = chip.getRow() + 1;
-
-        // // Checking for neighbords in the North direction
-        // if (this.getChipAtGridPosition(xNorthWest, yNorthWest) != null) {
-        // return true;
-        // }
-        // if (this.getChipAtGridPosition(xNorthWest, yNorthWest) != null) {
-        // return true;
-        // }
-
-        // // Checking for neighbords in the South direction
-        // if (this.getChipAtGridPosition(xSouthEast, ySouthEast) != null) {
-        // return true;
-        // }
-
-        // if (this.getChipAtGridPosition(xSouthhWest, ySouthWest) != null) {
-        // return true;
-        // }
-
-        // return false;
-        double distance = Math.hypot(dstRow - chip.getRow(), dstCol - chip.getCol());
-
-        // Moving to an adjacent, empty square
-        if (distance == Math.sqrt(2) && board.getChipAtGridPosition(dstRow, dstCol) == null) {
+        // Moving to an adjacent square
+        if (Math.abs(chip.getRow() - dstRow) == 1 && Math.abs(chip.getCol() - dstCol) == 1) {
             return true;
         }
-        // Checking if there is no other chip object on the destination square, then it can move there
-        // if (getChipAtGridPosition(dstRow, dstCol) == null) {
-        // return true;
-        // }
-        // Checking the option when we are skipping a square. If there is a chip and it it opposite color
-        // then it
-        // is possible to move there
-        // Checking for chips NorthWest to local chip object
-        if (distance <= Math.sqrt(8)) {
-            // When chip object wants to move north-east, checking on skipped square
-            if (board.getChipAtGridPosition(dstRow + 1, dstCol - 1) != null &&
-                board.getChipAtGridPosition(dstRow + 1, dstCol - 1).getColor() != chip.getColor()) {
+        
+        // Jumping over opponent piece, check for piece in the middle and is opponent's color
+        if (Math.abs(chip.getRow() - dstRow) == 2 && Math.abs(chip.getCol() - dstCol) == 2) {
+            Chip jumpedChip = board.getChipAtGridPosition(
+                (dstRow + chip.getRow()) / 2,
+                (dstCol + chip.getCol()) / 2);
+            if (jumpedChip != null && jumpedChip.getColor() != chip.getColor()) {
                 return true;
             }
-            // When chip object wants to move north-west, checking on skipped square
-            if (board.getChipAtGridPosition(dstRow + 1, dstCol + 1) != null &&
-                board.getChipAtGridPosition(dstRow + 1, dstCol + 1).getColor() != chip.getColor()) {
-                return true;
-            }
-
-            // When chip object wants to move south-west, checking on skipped square
-            if (board.getChipAtGridPosition(dstRow - 1, dstCol + 1) != null &&
-                board.getChipAtGridPosition(dstRow - 1, dstCol + 1).getColor() != chip.getColor()) {
-                return true;
-            }
-            // When chip object wants to move south-east, checking on skipped square
-            if (board.getChipAtGridPosition(dstRow - 1, dstCol - 1) != null &&
-                board.getChipAtGridPosition(dstRow - 1, dstCol - 1).getColor() != chip.getColor()) {
-                return true;
-            }
-            
         }
-        // Otherwise, it cannot move to the destined row and column
+
+        // If none of the conditions were met, then chip cannot move to destination row, column
         return false;
+
     }
 
     public void game() {
