@@ -1,0 +1,41 @@
+import edu.macalester.graphics.Rectangle;
+import java.awt.Color;
+
+public class Square {
+    private Rectangle graphics;
+    private int row;
+    private int col;
+
+    public Square(double size, int row, int col, boolean isDark) {
+        this.row = row;
+        this.col = col;
+        this.graphics = new Rectangle(col * size, row * size, size, size);
+        if (isDark) {
+            graphics.setFillColor(Color.BLACK);
+        } else {
+            graphics.setFillColor(Color.WHITE);
+        }
+        graphics.setFilled(true);
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public Rectangle getGraphics() {
+        return graphics;
+    }
+
+    public void setHighlighted(boolean isHighlighted) {
+        if (isHighlighted) {
+            graphics.setStrokeWidth(5);
+            graphics.setStrokeColor(Color.magenta);
+        } else {
+            graphics.setStroked(false);
+        }
+    }
+}

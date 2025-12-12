@@ -49,4 +49,8 @@ public class Chip {
             graphics.setStroked(false);
         }
     }
+
+    public Color getColor() {
+        return color;
+    }
 }

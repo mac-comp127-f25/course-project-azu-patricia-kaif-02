@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import edu.macalester.graphics.*;
@@ -8,31 +9,23 @@ import java.awt.Color;
 public class Board extends GraphicsGroup {
     public static final int ROWS = 10;
     public static final int COLS = 10;
-    private static final int TOTAL_CELLS = 100;
-    private static final int CELL_SIZE = 75;
+    private static final int SQUARE_SIZE = 75;
 
     private List<Chip> chips;
+    private List<Square> squares;
 
     public Board() {
         this.chips = new ArrayList<>();
+        this.squares = new ArrayList<>();
     }
 
     public void drawBoardLayout(CanvasWindow canvas) {
         // 0 = white and 1 = black
         for (int row = 0; row < 10; row++) {
             for (int col = 0; col < 10; col++) {
-                Rectangle cell = new Rectangle(
-                    col * CELL_SIZE,
-                    row * CELL_SIZE,
-                    CELL_SIZE,
-                    CELL_SIZE);
-                if (isDarkSquare(row, col)) {
-                    cell.setFillColor(Color.BLACK);
-                } else {
-                    cell.setFillColor(Color.WHITE);
-                }
-                cell.setFilled(true);
-                canvas.add(cell);
+                Square square = new Square(SQUARE_SIZE, row, col, isDarkSquare(row, col));
+                canvas.add(square.getGraphics());
+                squares.add(square);
             }
         }
     }
@@ -50,31 +43,37 @@ public class Board extends GraphicsGroup {
 
     public Point getCellCenter(int row, int col) {
         // Calculating the coordinate of the top-left corner of the grid in screen coordinates
-        double topX = col * CELL_SIZE;
-        double topY = row * CELL_SIZE;
+        double topX = col * SQUARE_SIZE;
+        double topY = row * SQUARE_SIZE;
 
         // Calculating the center of one cel
-        double centerX = topX + (CELL_SIZE / 2);
-        double centerY = topY + (CELL_SIZE / 2);
+        double centerX = topX + (SQUARE_SIZE / 2);
+        double centerY = topY + (SQUARE_SIZE / 2);
 
         return new Point(centerX, centerY);
     }
 
+    /**
+     * It returns a Chip object found at requested row and column. If none found, it returns null.
+     * @param row is an integer
+     * @param col is an integer
+     * @return
+     */
     public Chip getChipAtGridPosition(int row, int col) {
         // TODO
         // where is the chip
-        // what is at neighboring positions() -> 
-        // chip get color 
-        // does color == player color 
-        for (Chip chip: chips) {
+        // what is at neighboring positions() ->
+        // chip get color
+        // does color == player color
+        for (Chip chip : chips) {
             if (chip.getRow() == row && chip.getCol() == col) {
                 return chip;
-            } 
+            }
         }
         return null;
     }
 
-     private void placeChip(int row, int col, Color color) {
+    private void placeChip(int row, int col, Color color) {
         // inside board bounds check
         if (!this.isInside(row, col)) {
             return;
@@ -83,10 +82,6 @@ public class Board extends GraphicsGroup {
         if (!this.isDarkSquare(row, col)) {
             return;
         }
-        // already full check
-        // if (chipGrid[row][col] != null) {
-        //     return;
-        // }
 
         Chip chip = new Chip(color); // new chip object
         chip.setBoardPosition(row, col, this); // positions new chip
@@ -127,8 +122,8 @@ public class Board extends GraphicsGroup {
         GraphicsObject object = getElementAt(point);
         if (object != null) {
             // for each chip in list of chips:
-            //.   is object this chip's graphics obejct? if so, return it
-            for (Chip chip: chips) {
+            // . is object this chip's graphics obejct? if so, return it
+            for (Chip chip : chips) {
                 if (object == chip.getGraphics()) {
                     return chip;
                 }
@@ -137,12 +132,16 @@ public class Board extends GraphicsGroup {
         return null;
     }
 
+    /**
+     * It add a chip object to the board graphics group and to list of all chips
+     * @param chip is a Chip object
+     */
     public void add(Chip chip) {
-        // TODO:
-        // add chip's graphics to this graphics group
-        // add chip to some list of all chips
         this.add(chip.getGraphics());
         chips.add(chip);
     }
 
+    public List<Square> getSquares() {
+        return Collections.unmodifiableList(squares);
+    }
 }
