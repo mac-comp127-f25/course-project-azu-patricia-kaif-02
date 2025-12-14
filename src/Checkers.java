@@ -45,7 +45,7 @@ public class Checkers {
     }
 
     public Color currentPlayer() {
-        return currentPlayer();
+        return currentPlayerColor;
     }
 
     public void handleClick(CanvasWindow canvas) {
@@ -92,40 +92,37 @@ public class Checkers {
      * @return
      */
     public Runnable chipCanMove(Chip chip, int dstRow, int dstCol) {
-        // Chip cannont move if it is null
-        if (chip == null) {
-            return null;
-        }
-        
-        // Can only move into an empty space
-        if (board.getChipAtGridPosition(dstRow, dstCol) != null) {
-            return null;
+        if (chip == null) return null;
+
+        if (!board.isInside(dstRow, dstCol)) return null;
+        if (!board.isDarkSquare(dstRow, dstCol)) return null;
+
+        if (board.getChipAtGridPosition(dstRow, dstCol) != null) return null;
+
+        int dr = dstRow - chip.getRow();
+        int dc = dstCol - chip.getCol();
+
+        int dir = (chip.getColor() == Color.red) ? 1 : -1;
+
+        // normal move: one step forward diagonally
+        if (Math.abs(dc) == 1 && dr == dir) {
+            return () -> chip.setBoardPosition(dstRow, dstCol, board);
         }
 
-        // Moving to an adjacent square
-        if (Math.abs(chip.getRow() - dstRow) == 1 && Math.abs(chip.getCol() - dstCol) == 1) {
-            return () -> {
-                // change chip position
-                chip.setBoardPosition(dstRow, dstCol, board);
-            };
-        }
-        
-        // Jumping over opponent piece, check for piece in the middle and is opponent's color
-        if (Math.abs(chip.getRow() - dstRow) == 2 && Math.abs(chip.getCol() - dstCol) == 2) {
-            Chip jumpedChip = board.getChipAtGridPosition(
-                (dstRow + chip.getRow()) / 2,
-                (dstCol + chip.getCol()) / 2);
+        // jump: two steps forward diagonally over an opponent
+        if (Math.abs(dc) == 2 && dr == 2 * dir) {
+            int midRow = chip.getRow() + dir;
+            int midCol = chip.getCol() + (dc / 2);
+
+            Chip jumpedChip = board.getChipAtGridPosition(midRow, midCol);
             if (jumpedChip != null && jumpedChip.getColor() != chip.getColor()) {
                 return () -> {
-                    // remove the jumpedChip
-                    board.remove(jumpedChip.getGraphics());
-                    // update the chip position
+                    board.removeChip(jumpedChip);
                     chip.setBoardPosition(dstRow, dstCol, board);
                 };
             }
         }
 
-        // If none of the conditions were met, then chip cannot move to destination row, column
         return null;
     }
 

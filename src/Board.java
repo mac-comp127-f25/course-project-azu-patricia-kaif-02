@@ -76,7 +76,7 @@ public class Board extends GraphicsGroup {
 
         Chip chip = new Chip(color); // new chip object
         chip.setBoardPosition(row, col, this); // positions new chip
-        chips.add(chip); // add new chip object to list of chips
+        // chips.add(chip); // add new chip object to list of chips
         this.add(chip); // add chip to the board
     }
 
@@ -164,5 +164,11 @@ public class Board extends GraphicsGroup {
      */
     public List<Square> getSquares() {
         return Collections.unmodifiableList(squares);
+    }
+
+    public void removeChip(Chip chip) {
+        if (chip == null) return;
+        this.remove(chip.getGraphics());
+        chips.remove(chip);
     }
 }
