@@ -1,12 +1,11 @@
 import java.awt.Color;
-
 import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.Point;
 
 /**
- * Represents a single checkers chip on the board.
- * A chip has a color, a graphical representation, and a position in board coordinates.
+ * Authors: Azucena Ventimilla, Patricia Escobar, Kaif Kassam
  */
+
 public class Chip {
     private static final int RADIUS = 20;
 

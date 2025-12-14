@@ -7,6 +7,15 @@ public class Square {
     private int col;
     private Runnable pendingMove;
 
+    
+/**
+ * Authors: Azucena Ventimilla, Patricia Escobar, Kaif Kassam
+ * Creates the squares for the Checkers game 
+ * @param size
+ * @param row
+ * @param col
+ * @param isDark
+*/
     public Square(double size, int row, int col, boolean isDark) {
         this.row = row;
         this.col = col;

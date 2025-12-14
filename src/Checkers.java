@@ -3,6 +3,9 @@ import java.awt.Color;
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsText;
 
+/**
+ * Authors: Azucena Ventimilla, Patricia Escobar, Kaif Kassam
+ */
 
 public class Checkers {
     public static final int CANVAS_WIDTH = 1000;

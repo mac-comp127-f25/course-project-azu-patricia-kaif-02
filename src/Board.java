@@ -1,9 +1,12 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import edu.macalester.graphics.*;
 import java.awt.Color;
+
+/**
+ * Authors: Azucena Ventimilla, Patricia Escobar, Kaif Kassam
+ */
 
 
 /**
