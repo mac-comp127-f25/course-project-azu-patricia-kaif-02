@@ -1,9 +1,10 @@
 import java.awt.Color;
-
 import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.Point;
 
-
+/**
+ * Authors: Azucena Ventimilla, Patricia Escobar, Kaif Kassam
+ */
 
 public class Chip {
     private static final int RADIUS = 20;
