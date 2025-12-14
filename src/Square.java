@@ -40,6 +40,11 @@ public class Square {
         return graphics;
     }
 
+/*
+* It sets a pending action to run later, and visually highlights the square graphics in 
+* magenta when a pending move exists, otherwise turning off the stroke.
+*/
+
     public void setPendingMove(Runnable pendingMove) {
         this.pendingMove = pendingMove;
 
