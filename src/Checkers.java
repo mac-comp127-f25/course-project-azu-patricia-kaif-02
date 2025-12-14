@@ -72,8 +72,7 @@ public class Checkers {
             }
         });
     }
-
-    // y el corazon no tiene cara
+    
     
     public Color currentPlayer() {
         return currentPlayerColor;
