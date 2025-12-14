@@ -14,6 +14,7 @@ public class Checkers {
     // private String playerWhosActive = "red"; // in checkers one always starts with red
     private Color currentPlayerColor = Color.red; // red player starts playing first
     private GraphicsText turnIndicator = new GraphicsText("");
+    private GraphicsText chipCountDisplay = new GraphicsText("");
 
     private Chip selectedChip;
 
@@ -32,6 +33,13 @@ public class Checkers {
         turnIndicator.setText("Player's Turn: RED");
         turnIndicator.setCenter(canvas.getWidth() * 0.85, canvas.getHeight() * 0.15);
         canvas.add(turnIndicator);
+
+        // chip count on screen:
+        chipCountDisplay.setCenter(canvas.getWidth() * 0.79, canvas.getHeight() * 0.20);
+        canvas.add(chipCountDisplay);
+
+        updateChipCountDisplay();
+
     }
 
     private void switchTurn() {
@@ -120,8 +128,12 @@ public class Checkers {
             Chip jumpedChip = board.getChipAtGridPosition(midRow, midCol);
             if (jumpedChip != null && jumpedChip.getColor() != chip.getColor()) {
                 return () -> {
+                    //runnable only executed when a jump actually happens, when to check for win status
                     board.removeChip(jumpedChip);
+                    // board.updatedChipCount(jumpedChip); -- not necessary anymore, with updateChipCountDisplay helper - board.removeChip now also decrements count
                     chip.setBoardPosition(dstRow, dstCol, board);
+                    updateChipCountDisplay();
+                    checkWinCondition();
                 };
             }
         }
@@ -139,6 +151,14 @@ public class Checkers {
             gameOverDisplay().run();
         }
     }
+
+    private void updateChipCountDisplay() {
+        chipCountDisplay.setText(
+            "Red: " + board.getNumberOfRedChips() +
+            "  Blue: " + board.getNumberOfBlueChips()
+        );
+    }
+
     
     // Needs to be tested after the bug with the directional movement of chips are fixed!
     private Runnable gameOverDisplay() {
@@ -151,7 +171,7 @@ public class Checkers {
     public void game() {
         handleClick(canvas);
         board.placeStartingChips();
-        checkWinCondition();
+        // checkWinCondition();  // not necessary since no moves have occurred yet --
     }
 
     public static void main(String[] args) {
