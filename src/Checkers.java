@@ -44,10 +44,6 @@ public class Checkers {
         }
     }
 
-    public Color currentPlayer() {
-        return currentPlayerColor;
-    }
-
     public void handleClick(CanvasWindow canvas) {
         canvas.onClick(event -> {
             Chip chip = board.checkForChipAtGraphicsPosition(event.getPosition()); // Correctly identifying a chip
@@ -94,43 +90,66 @@ public class Checkers {
      * @return
      */
     public Runnable chipCanMove(Chip chip, int dstRow, int dstCol) {
-        if (chip == null) return null;
-
-        if (!board.isInside(dstRow, dstCol)) return null;
-        if (!board.isDarkSquare(dstRow, dstCol)) return null;
-
-        if (board.getChipAtGridPosition(dstRow, dstCol) != null) return null;
-
-        int dr = dstRow - chip.getRow();
-        int dc = dstCol - chip.getCol();
-
-        int dir = (chip.getColor() == Color.red) ? 1 : -1;
-
-        // normal move: one step forward diagonally
-        if (Math.abs(dc) == 1 && dr == dir) {
-            return () -> chip.setBoardPosition(dstRow, dstCol, board);
+        // Chip cannont move if it is null
+        if (chip == null) {
+            return null;
+        }
+        
+        // Can only move into an empty space
+        if (board.getChipAtGridPosition(dstRow, dstCol) != null) {
+            return null;
         }
 
-        // jump: two steps forward diagonally over an opponent
-        if (Math.abs(dc) == 2 && dr == 2 * dir) {
-            int midRow = chip.getRow() + dir;
-            int midCol = chip.getCol() + (dc / 2);
-
-            Chip jumpedChip = board.getChipAtGridPosition(midRow, midCol);
+        // Moving to an adjacent square
+        if (Math.abs(chip.getRow() - dstRow) == 1 && Math.abs(chip.getCol() - dstCol) == 1) {
+            return () -> {
+                // change chip position
+                chip.setBoardPosition(dstRow, dstCol, board);
+            };
+        }
+        
+        // Jumping over opponent piece, check for piece in the middle and is opponent's color
+        if (Math.abs(chip.getRow() - dstRow) == 2 && Math.abs(chip.getCol() - dstCol) == 2) {
+            Chip jumpedChip = board.getChipAtGridPosition(
+                (dstRow + chip.getRow()) / 2,
+                (dstCol + chip.getCol()) / 2);
             if (jumpedChip != null && jumpedChip.getColor() != chip.getColor()) {
                 return () -> {
-                    board.removeChip(jumpedChip);
+                    // remove the jumpedChip
+                    board.remove(jumpedChip.getGraphics());
+                    // update the number of chips on the board
+                    board.updatedChipCount(jumpedChip);
+                    // update the chip position
                     chip.setBoardPosition(dstRow, dstCol, board);
                 };
             }
         }
 
+        // If none of the conditions were met, then chip cannot move to destination row, column
         return null;
+    }
+    private void checkWinCondition() {
+        int numberOfRedChips = board.getNumberOfRedChips();
+        int numberOfBlueChips = board.getNumberOfBlueChips();
+
+        if (numberOfBlueChips == 0 || numberOfRedChips == 0) {
+            gameOverDisplay();
+        }
+    }
+    
+    // Needs to be tested after the bug with the directional movement of chips are fixed!
+    private Runnable gameOverDisplay() {
+        return () -> {
+
+            GraphicsText gameOverText = new GraphicsText(" GAME OVER!");
+            canvas.add(gameOverText);
+        };
     }
 
     public void game() {
         handleClick(canvas);
         board.placeStartingChips();
+        checkWinCondition();
     }
 
     public static void main(String[] args) {
