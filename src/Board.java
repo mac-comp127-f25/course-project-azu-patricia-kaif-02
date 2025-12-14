@@ -192,8 +192,8 @@ public class Board extends GraphicsGroup {
         if (chip == null) {
             return;
         }
-        
         this.remove(chip.getGraphics());
         chips.remove(chip);
+        updatedChipCount(chip);
     }
 }
