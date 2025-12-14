@@ -69,6 +69,8 @@ public class Checkers {
         });
     }
 
+    // y el corazon no tiene cara
+    
     public void selectChip(Chip chip) {
         if (selectedChip != null) {
             selectedChip.setSelected(false);
