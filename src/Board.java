@@ -6,6 +6,11 @@ import edu.macalester.graphics.*;
 import java.awt.Color;
 
 
+/**
+ * Represents a 10x10 checkers board.
+ * The board manages squares, chips, chip placement, chip removal,
+ * and tracking the number of remaining chips for each player.
+ */
 public class Board extends GraphicsGroup {
     public static final int ROWS = 10;
     public static final int COLS = 10;
@@ -16,6 +21,9 @@ public class Board extends GraphicsGroup {
     private int numberOfRedChips;
     private int numberOfBlueChips;
 
+    /**
+     * Constructs an empty board and initializes internal data structures.
+     */
     public Board() {
         this.chips = new ArrayList<>();
         this.squares = new ArrayList<>();
@@ -37,13 +45,18 @@ public class Board extends GraphicsGroup {
     }
 
     /**
-     * It checks if the chip is inside the board. Returns true if it is otherwise is false
+     * Determines whether a row and column are within board boundaries.
+     *
+     * @param row the row index
+     * @param col the column index
+     * @return true if the position is inside the board
      */
     public boolean isInside(int row, int col) {
         return row >= 0 && row < ROWS && col >= 0 && col < COLS;
     }
 
     /**
+     * Determines whether a square at the given position is dark.
      * 
      * @param row
      * @param col
@@ -53,6 +66,13 @@ public class Board extends GraphicsGroup {
         return (row + col) % 2 == 1;
     }
 
+    /**
+     * Computes the center point of a board cell in screen coordinates.
+     *
+     * @param row the row index
+     * @param col the column index
+     * @return the center point of the specified cell
+     */
     public Point getCellCenter(int row, int col) {
         // Calculating the coordinate of the top-left corner of the grid in screen coordinates
         double topX = col * SQUARE_SIZE;
@@ -65,7 +85,14 @@ public class Board extends GraphicsGroup {
         return new Point(centerX, centerY);
     }
 
-   
+    /**
+    * Places a chip of the specified color at a given board position.
+    * Chips are only placed on dark squares within board bounds.
+    *
+    * @param row the target row
+    * @param col the target column
+    * @param color the chip color
+    */
     private void placeChip(int row, int col, Color color) {
         // inside board bounds check
         if (!this.isInside(row, col)) {
@@ -82,6 +109,11 @@ public class Board extends GraphicsGroup {
         this.add(chip); // add chip to the board
     }
 
+    /**
+     * Places all starting chips in their initial positions.
+     * Red chips are placed on the top rows and blue chips on the bottom rows.
+     * Chip counts are updated accordingly.
+     */
     public void placeStartingChips() {
         // top player
         for (int row = 0; row < 4; row++) { // only three
@@ -118,11 +150,11 @@ public class Board extends GraphicsGroup {
         return null;
     }
 
-    /**
-     * It checks for the existence of an element at within the square on the given coordinates
-     * 
-     * @param point object
-     * @return the chip at the specified position, if no chip, it returns null
+   /**
+     * Determines whether a chip was clicked based on a graphical position.
+     *
+     * @param point the mouse click position
+     * @return the chip at that location, or null if none
      */
     public Chip checkForChipAtGraphicsPosition(Point point) {
         GraphicsObject object = getElementAt(point);
@@ -137,9 +169,10 @@ public class Board extends GraphicsGroup {
     }
 
     /**
-     * It checks for the existence of the graphics of a square at the indicated point
-     * @param point positions where we are looking for a square's graphics 
-     * @return
+     * Determines whether a square was clicked based on a graphical position.
+     *
+     * @param point the mouse click position
+     * @return the square at that location, or null if none
      */
     public Square checkForSquareAtGraphicsPosition(Point point) {
         GraphicsObject object = getElementAt(point);
@@ -154,30 +187,47 @@ public class Board extends GraphicsGroup {
     }
 
     /**
-     * It add a chip object to the board graphics group and to list of all chips
-     * @param chip is a Chip object
+     * Adds a chip to the board graphics and internal chip list.
+     *
+     * @param chip the chip to add
      */
     public void add(Chip chip) {
         this.add(chip.getGraphics());
         chips.add(chip);
     }
 
-    /**
-     * It returns the list of squares that the board has such that the list cannot be modified by the class getting it
-     * @return
+   /**
+     * Returns an unmodifiable list of all squares on the board.
+     *
+     * @return the list of board squares
      */
     public List<Square> getSquares() {
         return Collections.unmodifiableList(squares);
     }
 
+    /**
+     * Returns the number of remaining blue chips.
+     *
+     * @return number of blue chips
+     */
     public int getNumberOfBlueChips() {
         return numberOfBlueChips;
     }
 
+    /**
+     * Returns the number of remaining red chips.
+     *
+     * @return number of red chips
+     */
     public int getNumberOfRedChips() {
         return numberOfRedChips;
     }
 
+    /**
+     * Decrements the appropriate chip counter when a chip is captured.
+     *
+     * @param chip the captured chip
+     */
     public void updatedChipCount(Chip chip) {
         Color color = chip.getColor();
         if (color == Color.red) {
@@ -187,7 +237,13 @@ public class Board extends GraphicsGroup {
         }
     }
 
-
+    /**
+     * Removes a chip from the board.
+     * This method removes the chip graphics, removes it from the chip list,
+     * and updates the corresponding chip count.
+     *
+     * @param chip the chip to remove
+     */
     public void removeChip(Chip chip){
         if (chip == null) {
             return;
