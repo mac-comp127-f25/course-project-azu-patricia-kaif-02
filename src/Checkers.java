@@ -30,17 +30,17 @@ public class Checkers {
 
     private void setupTurnDisplay() {
         turnIndicator.setText("Player's Turn: RED");
-        turnIndicator.setCenter(850, 100);
+        turnIndicator.setCenter(canvas.getWidth() * 0.85, canvas.getHeight() * 0.15);
         canvas.add(turnIndicator);
     }
 
     private void switchTurn() {
         if (currentPlayerColor == Color.red) {
             currentPlayerColor = Color.blue;
-            turnIndicator.setText("Player's Turn: RED");
+            turnIndicator.setText("Player's Turn: BLUE");
         } else {
             currentPlayerColor = Color.red;
-            turnIndicator.setText("Player's Turn: BLUE");
+            turnIndicator.setText("Player's Turn: RED");
         }
     }
 
@@ -52,7 +52,6 @@ public class Checkers {
         canvas.onClick(event -> {
             Chip chip = board.checkForChipAtGraphicsPosition(event.getPosition()); // Correctly identifying a chip
             if (chip != null && chip.getColor() == currentPlayerColor) {
-                System.out.println("Current player is " + currentPlayerColor.toString());
                 selectChip(chip);
                 return;
             }
@@ -65,7 +64,6 @@ public class Checkers {
                     pendingMove.run();
                     selectChip(null);
                     switchTurn();
-                    System.out.println("We switched the turns!");
                 }
             }
         });
