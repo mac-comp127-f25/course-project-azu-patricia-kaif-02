@@ -189,7 +189,6 @@ public class Checkers {
     public void game() {
         handleClick(canvas);
         board.placeStartingChips();
-        // checkWinCondition();  // not necessary since no moves have occurred yet --
     }
 
     public static void main(String[] args) {
