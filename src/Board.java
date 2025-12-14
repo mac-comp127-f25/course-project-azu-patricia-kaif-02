@@ -105,10 +105,8 @@ public class Board extends GraphicsGroup {
         if (!this.isDarkSquare(row, col)) {
             return;
         }
-
         Chip chip = new Chip(color); // new chip object
         chip.setBoardPosition(row, col, this); // positions new chip
-
         this.add(chip); // add chip to the board
     }
 
