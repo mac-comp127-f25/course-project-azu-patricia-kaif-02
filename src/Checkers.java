@@ -2,7 +2,6 @@ import java.awt.Color;
 
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsText;
-import edu.macalester.graphics.Point;
 
 
 public class Checkers {
@@ -12,8 +11,8 @@ public class Checkers {
     private CanvasWindow canvas;
     private Board board;
 
-    private String playerWhosActive = "red"; // in checkers one always starts with red
-    private Color currentPlayerColor = Color.red;
+    // private String playerWhosActive = "red"; // in checkers one always starts with red
+    private Color currentPlayerColor = Color.red; // red player starts playing first
     private GraphicsText turnIndicator = new GraphicsText("");
 
     private Chip selectedChip;
@@ -36,24 +35,24 @@ public class Checkers {
     }
 
     private void switchTurn() {
-        if (playerWhosActive.equals("red")) {
-            playerWhosActive = "blue";
-            turnIndicator.setText("Player's Turn: BLUE");
-        } else {
-            playerWhosActive = "red";
+        if (currentPlayerColor == Color.red) {
+            currentPlayerColor = Color.blue;
             turnIndicator.setText("Player's Turn: RED");
+        } else {
+            currentPlayerColor = Color.red;
+            turnIndicator.setText("Player's Turn: BLUE");
         }
     }
 
-    public String playerWhosActive() {
-        return playerWhosActive();
+    public Color currentPlayer() {
+        return currentPlayer();
     }
-
 
     public void handleClick(CanvasWindow canvas) {
         canvas.onClick(event -> {
             Chip chip = board.checkForChipAtGraphicsPosition(event.getPosition()); // Correctly identifying a chip
-            if (chip != null) {
+            if (chip != null && chip.getColor() == currentPlayerColor) {
+                System.out.println("Current player is " + currentPlayerColor.toString());
                 selectChip(chip);
                 return;
             }
@@ -65,6 +64,8 @@ public class Checkers {
                 if (pendingMove != null) {
                     pendingMove.run();
                     selectChip(null);
+                    switchTurn();
+                    System.out.println("We switched the turns!");
                 }
             }
         });

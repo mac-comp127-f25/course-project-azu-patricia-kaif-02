@@ -19,6 +19,10 @@ public class Board extends GraphicsGroup {
         this.squares = new ArrayList<>();
     }
 
+    /**
+     * It draws a checkers board of 10x10 with white and black rectangles on the given canvas
+     * @param canvas
+     */
     public void drawBoardLayout(CanvasWindow canvas) {
         // 0 = white and 1 = black
         for (int row = 0; row < 10; row++) {
@@ -37,6 +41,12 @@ public class Board extends GraphicsGroup {
         return row >= 0 && row < ROWS && col >= 0 && col < COLS;
     }
 
+    /**
+     * 
+     * @param row
+     * @param col
+     * @return
+     */
     public boolean isDarkSquare(int row, int col) {
         return (row + col) % 2 == 1;
     }
@@ -89,10 +99,6 @@ public class Board extends GraphicsGroup {
         }
     }
 
-    // public void removeChipAtGridPosition() {
-
-    // }
-
     /**
      * It returns a Chip object found at requested row and column. If none found, it returns null.
      * @param row is an integer
@@ -126,6 +132,11 @@ public class Board extends GraphicsGroup {
         return null;
     }
 
+    /**
+     * It checks for the existence of the graphics of a square at the indicated point
+     * @param point positions where we are looking for a square's graphics 
+     * @return
+     */
     public Square checkForSquareAtGraphicsPosition(Point point) {
         GraphicsObject object = getElementAt(point);
         if (object != null) {
@@ -138,7 +149,6 @@ public class Board extends GraphicsGroup {
         return null;
     }
 
-
     /**
      * It add a chip object to the board graphics group and to list of all chips
      * @param chip is a Chip object
@@ -148,6 +158,10 @@ public class Board extends GraphicsGroup {
         chips.add(chip);
     }
 
+    /**
+     * It returns the list of squares that the board has such that the list cannot be modified by the class getting it
+     * @return
+     */
     public List<Square> getSquares() {
         return Collections.unmodifiableList(squares);
     }
