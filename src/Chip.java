@@ -4,6 +4,7 @@ import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.Point;
 
 
+
 public class Chip {
     private static final int RADIUS = 20;
 
