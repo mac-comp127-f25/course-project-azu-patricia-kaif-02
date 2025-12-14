@@ -14,7 +14,6 @@ public class Checkers {
     private CanvasWindow canvas;
     private Board board;
 
-    // private String playerWhosActive = "red"; // in checkers one always starts with red
     private Color currentPlayerColor = Color.red; // red player starts playing first
     private GraphicsText turnIndicator = new GraphicsText("");
     private GraphicsText chipCountDisplay = new GraphicsText("");
@@ -28,10 +27,12 @@ public class Checkers {
         board.drawBoardLayout(canvas);
         canvas.add(board);
 
-
         setupTurnDisplay();
     }
 
+    /**
+     * It shows the current number of chips each player has and whose turns it is 
+     */
     private void setupTurnDisplay() {
         turnIndicator.setText("Player's Turn: RED");
         turnIndicator.setCenter(canvas.getWidth() * 0.85, canvas.getHeight() * 0.15);
@@ -42,9 +43,11 @@ public class Checkers {
         canvas.add(chipCountDisplay);
 
         updateChipCountDisplay();
-
     }
 
+    /**
+     * A helped method that updates the current's player color. 
+     */
     private void switchTurn() {
         if (currentPlayerColor == Color.red) {
             currentPlayerColor = Color.blue;
@@ -55,6 +58,11 @@ public class Checkers {
         }
     }
 
+    /**
+    * Registers the main game's click and handles it.
+    * It manages chip selection, executes valid moves and manages the turns.
+    * @param canvas
+    */
     public void handleClick(CanvasWindow canvas) {
         canvas.onClick(event -> {
             Chip chip = board.checkForChipAtGraphicsPosition(event.getPosition()); // Correctly identifying a chip
@@ -76,11 +84,18 @@ public class Checkers {
         });
     }
     
-    
+    /**
+    * It is a getter method to get the current's player color
+    * @return color of the current player
+    */
     public Color currentPlayer() {
         return currentPlayerColor;
     }
 
+    /**
+    * It selects the passed chip object and deselects the current selected chip
+    * @param chip
+    */
     public void selectChip(Chip chip) {
         if (selectedChip != null) {
             selectedChip.setSelected(false);
@@ -143,6 +158,9 @@ public class Checkers {
         return null;
     }
 
+    /**
+    * It keeps track of the number  of chips and if one of them is zero, then it displays a game over tag.
+    */
     private void checkWinCondition() {
         int numberOfRedChips = board.getNumberOfRedChips();
         System.out.println("Number of red chips " + numberOfRedChips);
@@ -160,9 +178,7 @@ public class Checkers {
             "  Blue: " + board.getNumberOfBlueChips()
         );
     }
-
     
-    // Needs to be tested after the bug with the directional movement of chips are fixed!
     private Runnable gameOverDisplay() {
         return () -> {
             GraphicsText gameOverText = new GraphicsText("YOU WIN!!!!");
@@ -181,8 +197,4 @@ public class Checkers {
         Checkers checkers = new Checkers(canvas);
         checkers.game();
     }
-
-
-
-
 }
