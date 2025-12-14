@@ -13,6 +13,8 @@ public class Board extends GraphicsGroup {
 
     private List<Chip> chips;
     private List<Square> squares;
+    private int numberOfRedChips;
+    private int numberOfBlueChips;
 
     public Board() {
         this.chips = new ArrayList<>();
@@ -86,6 +88,7 @@ public class Board extends GraphicsGroup {
             for (int col = 0; col < Board.COLS; col++) { // all the way till the end of board
                 if (this.isDarkSquare(row, col)) {
                     placeChip(row, col, Color.RED);
+                    this.numberOfRedChips += 1;
                 }
             }
         }
@@ -94,6 +97,7 @@ public class Board extends GraphicsGroup {
             for (int col = 0; col < Board.COLS; col++) {
                 if (this.isDarkSquare(row, col)) {
                     placeChip(row, col, Color.BLUE);
+                    this.numberOfBlueChips +=1; 
                 }
             }
         }
@@ -164,5 +168,22 @@ public class Board extends GraphicsGroup {
      */
     public List<Square> getSquares() {
         return Collections.unmodifiableList(squares);
+    }
+
+    public int getNumberOfBlueChips() {
+        return numberOfBlueChips;
+    }
+
+    public int getNumberOfRedChips() {
+        return numberOfRedChips;
+    }
+
+    public void updatedChipCount(Chip chip) {
+        Color color = chip.getColor();
+        if (color == Color.red) {
+            numberOfRedChips -= 1;
+        } else {
+            numberOfBlueChips -=1;
+        }
     }
 }

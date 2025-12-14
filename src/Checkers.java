@@ -44,10 +44,6 @@ public class Checkers {
         }
     }
 
-    public Color currentPlayer() {
-        return currentPlayer();
-    }
-
     public void handleClick(CanvasWindow canvas) {
         canvas.onClick(event -> {
             Chip chip = board.checkForChipAtGraphicsPosition(event.getPosition()); // Correctly identifying a chip
@@ -119,6 +115,8 @@ public class Checkers {
                 return () -> {
                     // remove the jumpedChip
                     board.remove(jumpedChip.getGraphics());
+                    // update the number of chips on the board
+                    board.updatedChipCount(jumpedChip);
                     // update the chip position
                     chip.setBoardPosition(dstRow, dstCol, board);
                 };
@@ -128,10 +126,28 @@ public class Checkers {
         // If none of the conditions were met, then chip cannot move to destination row, column
         return null;
     }
+    private void checkWinCondition() {
+        int numberOfRedChips = board.getNumberOfRedChips();
+        int numberOfBlueChips = board.getNumberOfBlueChips();
+
+        if (numberOfBlueChips == 0 || numberOfRedChips == 0) {
+            gameOverDisplay();
+        }
+    }
+    
+    // Needs to be tested after the bug with the directional movement of chips are fixed!
+    private Runnable gameOverDisplay() {
+        return () -> {
+
+            GraphicsText gameOverText = new GraphicsText(" GAME OVER!");
+            canvas.add(gameOverText);
+        };
+    }
 
     public void game() {
         handleClick(canvas);
         board.placeStartingChips();
+        checkWinCondition();
     }
 
     public static void main(String[] args) {
